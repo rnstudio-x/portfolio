@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RN Studio - Wedding Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #d4af37;
+            --text-color: #ffffff;
+            --transition-speed: 0.3s;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all var(--transition-speed);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .logo {
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .navbar {
+            display: flex;
+        }
+        
+        .navbar li {
+            list-style: none;
+            margin-left: 30px;
+        }
+        
+        .navbar li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all var(--transition-speed);
+        }
+        
+        .navbar li a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1920/1080') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+            transform: scale(1.1);
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s ease-out 0.5s forwards;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-color);
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+        
+        .hero-title span,
+        .hero-subtitle span {
+            color: var(--accent-color);
+        }
+        
+        .hero-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--text-color);
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all var(--transition-speed);
+            cursor: pointer;
+        }
+        
+        .hero-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-color);
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Gallery Page Styles */
+        .gallery-section {
+            padding: 80px 50px 50px;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-title h2 {
+            font-size: 36px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .gallery-title h2 span {
+            color: var(--accent-color);
+        }
+        
+        .gallery-description {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        /* Wedding Couples Grid */
+        .couples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .couple-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            height: 500px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+            cursor: pointer;
+        }
+        
+        .couple-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .couple-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-speed);
+        }
+        
+        .couple-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .couple-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            transition: all var(--transition-speed);
+        }
+        
+        .couple-name {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .couple-date {
+            font-size: 14px;
+            color: var(--accent-color);
+        }
+        
+        .view-gallery {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all var(--transition-speed);
+        }
+        
+        .couple-item:hover .view-gallery {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .couple-item:hover .couple-overlay {
+            padding-bottom: 40px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .footer-section p {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            margin: 0 10px;
+            transition: all var(--transition-speed);
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .copyright p {
+            font-size: 14px;
+        }
+        
+        .copyright span {
+            color: var(--accent-color);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 991px) {
+            header {
+                padding: 20px 50px;
+            }
+            
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .gallery-section {
+                padding: 60px 30px 30px;
+            }
+            
+            .couples-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 30px;
+            }
+            
+            .couple-item {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 30px;
+            }
+            
+            .navbar {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .gallery-section {
+                padding: 50px 20px 20px;
+            }
+            
+            .couples-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .couple-item {
+                height: 350px;
+            }
+            
+            .couple-name {
+                font-size: 18px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .couples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .couple-item {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">RN<span>Studio</span></a>
+        <ul class="navbar">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Wedding <span>Photography</span></h1>
+            <p class="hero-subtitle">Capturing your <span>special moments</span> with elegance and creativity</p>
+            <a href="#gallery" class="hero-button">Explore Galleries</a>
+        </div>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="gallery-title">
+            <h2>Featured <span>Weddings</span></h2>
+        </div>
+        
+        <div class="gallery-description">
+            <p>Explore our collection of wedding photography showcasing beautiful moments captured for couples on their special day. Each gallery tells a unique love story through our lens.</p>
+        </div>
+
+        <div class="couples-grid">
+            <!-- Couple 1 -->
+            <div class="couple-item">
+                <img src="https://lh3.googleusercontent.com/d/1XccgNndypdbZfj6ieA230QY0atPSiAKC" alt="Ashish & Monika Wedding">
+                <div class="couple-overlay">
+                    <h3 class="couple-name">Ashish & Monika</h3>
+                    <p class="couple-date">April 03, 2025</p>
+                    <p class="view-gallery">View Gallery <i class="fas fa-arrow-right"></i></p>
+                </div>
+            </div>
+            
+            <!-- Couple 2 -->
+            <div class="couple-item">
+                <img src="https://lh3.googleusercontent.com/d/14gtRHAFaN4qMB_EEYwtCg6szqaQpjv3g" alt="Emma & David Wedding">
+                <div class="couple-overlay">
+                    <h3 class="couple-name">Emma & David</h3>
+                    <p class="couple-date">August 22, 2024</p>
+                    <p class="view-gallery">View Gallery <i class="fas fa-arrow-right"></i></p>
+                </div>
+            </div>
+            
+            <!-- Couple 3 -->
+            <div class="couple-item">
+                <img src="/api/placeholder/600/900" alt="Jessica & Thomas Wedding">
+                <div class="couple-overlay">
+                    <h3 class="couple-name">Jessica & Thomas</h3>
+                    <p class="couple-date">May 8, 2024</p>
+                    <p class="view-gallery">View Gallery <i class="fas fa-arrow-right"></i></p>
+                </div>
+            </div>
+            
+            <!-- Couple 4 -->
+            <div class="couple-item">
+                <img src="/api/placeholder/900/600" alt="Olivia & James Wedding">
+                <div class="couple-overlay">
+                    <h3 class="couple-name">Olivia & James</h3>
+                    <p class="couple-date">September 3, 2024</p>
+                    <p class="view-gallery">View Gallery <i class="fas fa-arrow-right"></i></p>
+                </div>
+            </div>
+            
+            <!-- Couple 5 -->
+            <div class="couple-item">
+                <img src="/api/placeholder/600/600" alt="Sophia & William Wedding">
+                <div class="couple-overlay">
+                    <h3 class="couple-name">Sophia & William</h3>
+                    <p class="couple-date">July 19, 2024</p>
+                    <p class="view-gallery">View Gallery <i class="fas fa-arrow-right"></i></p>
+                </div>
+            </div>
+            
+            <!-- Couple 6 -->
+            <div class="couple-item">
+                <img src="/api/placeholder/800/800" alt="Charlotte & Henry Wedding">
+                <div class="couple-overlay">
+                    <h3 class="couple-name">Charlotte & Henry</h3>
+                    <p class="couple-date">October 12, 2024</p>
+                    <p class="view-gallery">View Gallery <i class="fas fa-arrow-right"></i></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>RN Studio specializes in capturing life's special moments with creativity and passion. Our team of photographers creates stunning visual narratives.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Email: rbaria736@gmail.com</p>
+                <p>Phone: +91 8239372489</p>
+                <p>Address: Church Gali, Thandla, Madhya Pradesh Pin Code : 457777</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 <span>RN Studio</span>. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Animate gallery items on scroll
+            function checkVisible() {
+                $('.couple-item').each(function() {
+                    if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }
+            
+            // Initial check
+            checkVisible();
+            
+            // Check on scroll
+            $(window).on('scroll', function() {
+                checkVisible();
+            });
+            
+            // Sticky header
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > 50) {
+                    $('header').css('background-color', 'rgba(0, 0, 0, 0.9)');
+                } else {
+                    $('header').css('background-color', 'rgba(0, 0, 0, 0.8)');
+                }
+            });
+            
+            // Smooth scroll
+            $('.scroll-down, .hero-button').on('click', function(e) {
+                e.preventDefault();
+                var target = $(this).attr('href') ? $(this).attr('href') : '#gallery';
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top
+                }, 1000);
+            });
+            
+            // Link to individual galleries
+            $('.couple-item').on('click', function() {
+                var coupleName = $(this).find('.couple-name').text().trim();
+                // Replace spaces with hyphens and convert to lowercase for URL
+                var coupleUrl = coupleName.replace(/\s+/g, '-').toLowerCase();
+                // Redirect to individual gallery page
+                window.location.href = coupleUrl + '.html';
+            });
+        });
+    </script>
+</body>
+</html>
