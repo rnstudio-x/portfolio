@@ -1,63 +1,25 @@
 {
   "name": "RN Studio",
   "short_name": "RN Studio",
-  "description": "Capturing movements, creating memories. Professional photography and videography portfolio showcasing visual storytelling.",
-  "id": "/portfolio/",
-  "start_url": "/portfolio/",
+  "id": "/?source=pwa",
+  "description": "Capturing movements, creating memories. Professional photography and videography portfolio by RN Studio.",
+  "categories": ["photography", "design", "portfolio"],
+  "start_url": "/portfolio/?source=pwa",
   "scope": "/portfolio/",
   "display": "standalone",
   "orientation": "any",
   "theme_color": "#0f3755",
   "background_color": "#ffffff",
-  "dir": "ltr",
-  "lang": "en",
-  "categories": ["photography", "portfolio", "art"],
-  "iarc_rating_id": "",
-  "prefer_related_applications": false,
-  "related_applications": [],
-  "shortcuts": [
-    {
-      "name": "View Portfolio",
-      "url": "/portfolio/index.html#gallery",
-      "description": "Browse our work portfolio"
-    },
-    {
-      "name": "Contact Us",
-      "url": "/portfolio/index.html#contact",
-      "description": "Get in touch with RN Studio"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/portfolio/assetss/favicon/screenshots/screenshot1.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "platform": "wide",
-      "label": "Portfolio Home Screen"
-    }
-  ],
   "icons": [
-    {
-      "src": "/portfolio/assetss/favicon/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "/portfolio/assetss/favicon/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
     {
       "src": "/portfolio/assetss/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "/portfolio/assetss/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "/portfolio/assetss/favicon/maskable-icon-192x192.png",
@@ -71,5 +33,46 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/portfolio/screenshots/home-screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Home screen of RN Studio Portfolio"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Gallery",
+      "url": "/portfolio/gallery",
+      "description": "View our photography portfolio"
+    },
+    {
+      "name": "Contact",
+      "url": "/portfolio/contact",
+      "description": "Get in touch with RN Studio"
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "iarc_rating_id": "",
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "share_target": {
+    "action": "/portfolio/share-target/",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "launch_handler": {
+    "client_mode": "auto"
+  }
 }
