@@ -1,0 +1,1434 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same head content as before -->
+    <style>
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --text-muted: #95a5a6;
+            --bg-light: #f8f9fa;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --white: #ffffff;
+            --shadow: 0 10px 40px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+            --border-radius: 20px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(44, 62, 80, 0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><path d="M0,150 C250,50 750,250 1000,150 L1000,300 L0,300 Z" fill="rgba(255,255,255,0.1)"/></svg>') center/cover;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--white);
+            padding: 3rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Equipment Grid */
+        .equipment-section {
+            padding: 4rem 0 6rem;
+            background: var(--bg-light);
+        }
+
+        .equipment-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .equipment-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .equipment-image {
+            width: 100%;
+            height: 250px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equipment-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            opacity: 0.1;
+        }
+
+        .availability-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .available {
+            background: var(--success-color);
+            color: var(--white);
+        }
+
+        .limited {
+            background: var(--warning-color);
+            color: var(--white);
+        }
+
+        .unavailable {
+            background: var(--text-muted);
+            color: var(--white);
+        }
+
+        .equipment-info {
+            padding: 2rem;
+        }
+
+        .equipment-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .equipment-brand {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .equipment-specs {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .equipment-specs li {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .equipment-specs li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .pricing-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--bg-light);
+        }
+
+        .price-display {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .daily-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .weekly-price {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .rent-button {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .rent-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .rent-button:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Rental Process */
+        .rental-process {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .process-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .process-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .process-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .process-step {
+            position: relative;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .step-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Terms Section */
+        .terms-section {
+            padding: 6rem 0;
+            background: var(--bg-light);
+        }
+
+        .terms-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .terms-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .terms-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .terms-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .terms-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .terms-card h3::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .terms-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--bg-gradient);
+            padding: 6rem 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .cta-btn.secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .terms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <style>
+
+        /* Include all previous CSS plus new modal styles */
+        
+        .rental-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .rental-modal.active {
+            display: flex;
+        }
+
+        .rental-content {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .equipment-summary {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .rental-calculator {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .total-display {
+            text-align: center;
+            padding: 1rem;
+            background: var(--accent-color);
+            color: var(--white);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">RN Studio</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a href="equipment.html" class="nav-link active">Equipment Rental</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Professional Equipment Rental</h1>
+            <p>Rent high-end photography and videography equipment for your creative projects. Professional gear, competitive rates, expert support.</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-category="all">All Equipment</button>
+                <button class="filter-btn" data-category="cameras">Cameras</button>
+                <button class="filter-btn" data-category="lenses">Lenses</button>
+                <button class="filter-btn" data-category="lighting">Lighting</button>
+                <button class="filter-btn" data-category="video">Video Equipment</button>
+                <button class="filter-btn" data-category="accessories">Accessories</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Grid -->
+    <section class="equipment-section">
+        <div class="equipment-container">
+            <div class="equipment-grid">
+                
+                <!-- Camera Equipment -->
+                <div class="equipment-card" data-category="cameras">
+                    <div class="equipment-image">
+                        📷
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Canon EOS R5</h3>
+                        <p class="equipment-brand">Canon Professional</p>
+                        <ul class="equipment-specs">
+                            <li>45MP Full-Frame Sensor</li>
+                            <li>8K Video Recording</li>
+                            <li>In-Body Image Stabilization</li>
+                            <li>Dual Memory Card Slots</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹2,500/day</span>
+                                <span class="weekly-price">₹15,000/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="equipment-card" data-category="cameras">
+                    <div class="equipment-image">
+                        📸
+                        <div class="availability-badge limited">2 Left</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Sony A7 IV</h3>
+                        <p class="equipment-brand">Sony Professional</p>
+                        <ul class="equipment-specs">
+                            <li>33MP Full-Frame Sensor</li>
+                            <li>4K 60fps Video</li>
+                            <li>5-Axis Stabilization</li>
+                            <li>Real-time Eye AF</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹2,200/day</span>
+                                <span class="weekly-price">₹13,000/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lens Equipment -->
+                <div class="equipment-card" data-category="lenses">
+                    <div class="equipment-image">
+                        🔍
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Canon RF 24-70mm f/2.8L</h3>
+                        <p class="equipment-brand">Canon L-Series</p>
+                        <ul class="equipment-specs">
+                            <li>Professional zoom lens</li>
+                            <li>Constant f/2.8 aperture</li>
+                            <li>Weather sealed</li>
+                            <li>Image stabilization</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹1,800/day</span>
+                                <span class="weekly-price">₹10,000/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="equipment-card" data-category="lenses">
+                    <div class="equipment-image">
+                        🔭
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Sony FE 85mm f/1.4 GM</h3>
+                        <p class="equipment-brand">Sony G Master</p>
+                        <ul class="equipment-specs">
+                            <li>Premium portrait lens</li>
+                            <li>f/1.4 maximum aperture</li>
+                            <li>Beautiful bokeh</li>
+                            <li>Fast, silent autofocus</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹1,500/day</span>
+                                <span class="weekly-price">₹8,500/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lighting Equipment -->
+                <div class="equipment-card" data-category="lighting">
+                    <div class="equipment-image">
+                        💡
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Godox AD600Pro</h3>
+                        <p class="equipment-brand">Godox Professional</p>
+                        <ul class="equipment-specs">
+                            <li>600Ws Outdoor Flash</li>
+                            <li>TTL & HSS Support</li>
+                            <li>Portable Battery Pack</li>
+                            <li>2.4G Wireless Control</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹1,200/day</span>
+                                <span class="weekly-price">₹7,000/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="equipment-card" data-category="lighting">
+                    <div class="equipment-image">
+                        🌟
+                        <div class="availability-badge limited">1 Left</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Aputure 120D Mark II</h3>
+                        <p class="equipment-brand">Aputure Professional</p>
+                        <ul class="equipment-specs">
+                            <li>120W LED Light</li>
+                            <li>CRI 96+ Color Accuracy</li>
+                            <li>Bowens Mount</li>
+                            <li>App Control</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹1,000/day</span>
+                                <span class="weekly-price">₹6,000/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Equipment -->
+                <div class="equipment-card" data-category="video">
+                    <div class="equipment-image">
+                        🎥
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">DJI Ronin-S</h3>
+                        <p class="equipment-brand">DJI Professional</p>
+                        <ul class="equipment-specs">
+                            <li>3-Axis Camera Gimbal</li>
+                            <li>3.6kg Payload Capacity</li>
+                            <li>12-Hour Battery Life</li>
+                            <li>Focus/Zoom Control</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹1,500/day</span>
+                                <span class="weekly-price">₹8,500/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="equipment-card" data-category="video">
+                    <div class="equipment-image">
+                        🚁
+                        <div class="availability-badge unavailable">Rented Out</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">DJI Air 2S</h3>
+                        <p class="equipment-brand">DJI Consumer</p>
+                        <ul class="equipment-specs">
+                            <li>1-inch CMOS Sensor</li>
+                            <li>5.4K Video Recording</li>
+                            <li>31-Min Flight Time</li>
+                            <li>10km Video Transmission</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹2,000/day</span>
+                                <span class="weekly-price">₹12,000/week</span>
+                            </div>
+                            <button class="rent-button" disabled>Currently Unavailable</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accessories -->
+                <div class="equipment-card" data-category="accessories">
+                    <div class="equipment-image">
+                        🎭
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Manfrotto Carbon Tripod</h3>
+                        <p class="equipment-brand">Manfrotto Professional</p>
+                        <ul class="equipment-specs">
+                            <li>Carbon Fiber Construction</li>
+                            <li>10kg Load Capacity</li>
+                            <li>4-Section Legs</li>
+                            <li>Quick Release System</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹500/day</span>
+                                <span class="weekly-price">₹2,500/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="equipment-card" data-category="accessories">
+                    <div class="equipment-image">
+                        🎬
+                        <div class="availability-badge available">Available</div>
+                    </div>
+                    <div class="equipment-info">
+                        <h3 class="equipment-name">Rode VideoMic Pro+</h3>
+                        <p class="equipment-brand">Rode Professional</p>
+                        <ul class="equipment-specs">
+                            <li>Directional On-Camera Mic</li>
+                            <li>Rechargeable Battery</li>
+                            <li>Safety Channel Recording</li>
+                            <li>High-Pass Filter</li>
+                        </ul>
+                        <div class="pricing-info">
+                            <div class="price-display">
+                                <span class="daily-price">₹400/day</span>
+                                <span class="weekly-price">₹2,000/week</span>
+                            </div>
+                            <button class="rent-button">Rent Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Process -->
+    <section class="rental-process">
+        <div class="process-container">
+            <h2 class="process-title">How Equipment Rental Works</h2>
+            <p class="process-subtitle">Simple steps to get professional equipment for your projects</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Browse & Select</h3>
+                    <p class="step-description">Choose from our extensive collection of professional photography and video equipment</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Book & Pay</h3>
+                    <p class="step-description">Reserve your equipment with advance payment and receive confirmation</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Pickup/Delivery</h3>
+                    <p class="step-description">Collect equipment from our studio or opt for delivery service</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Create & Return</h3>
+                    <p class="step-description">Use the equipment for your project and return it in good condition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms & Conditions -->
+    <section class="terms-section">
+        <div class="terms-container">
+            <h2 class="terms-title">Rental Terms & Policies</h2>
+            
+            <div class="terms-grid">
+                <div class="terms-card">
+                    <h3>Security Deposit</h3>
+                    <p>A refundable security deposit of 25-50% of equipment value is required. Deposit is returned upon safe return of equipment.</p>
+                </div>
+                
+                <div class="terms-card">
+                    <h3>Damage Policy</h3>
+                    <p>Minor wear is expected. Accidental damage will be assessed and repair costs deducted from deposit. Insurance options available.</p>
+                </div>
+                
+                <div class="terms-card">
+                    <h3>Late Return</h3>
+                    <p>Late returns incur additional daily charges. Extensions available subject to availability and advance notice.</p>
+                </div>
+                
+                <div class="terms-card">
+                    <h3>Cancellation</h3>
+                    <p>Free cancellation up to 48 hours before rental. Later cancellations may incur charges based on advance payment.</p>
+                </div>
+                
+                <div class="terms-card">
+                    <h3>Delivery Service</h3>
+                    <p>Equipment delivery available within city limits for additional fee. Delivery charges based on distance and equipment value.</p>
+                </div>
+                
+                <div class="terms-card">
+                    <h3>Technical Support</h3>
+                    <p>Free technical support and equipment orientation included. 24/7 emergency support available for major productions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Ready to Rent Equipment?</h2>
+            <p class="cta-text">Contact us to check availability, get custom quotes, or discuss your specific equipment needs.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-btn">Check Availability</a>
+                <a href="#contact" class="cta-btn secondary">Get Custom Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Previous content... -->
+
+    <!-- Equipment Rental Modal -->
+    <div class="rental-modal" id="rentalModal">
+        <div class="rental-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeRentalModal()">&times;</button>
+                <h2>Equipment Rental Request</h2>
+                <p>Complete your rental booking</p>
+            </div>
+            
+            <div class="modal-body">
+                <div class="equipment-summary" id="equipmentSummary">
+                    <!-- Equipment details will be populated here -->
+                </div>
+
+                <div class="rental-calculator">
+                    <h3>Rental Calculator</h3>
+                    <div class="date-row">
+                        <div class="form-group">
+                            <label class="form-label">Start Date *</label>
+                            <input type="date" class="form-input" id="startDate" onchange="calculateTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Date *</label>
+                            <input type="date" class="form-input" id="endDate" onchange="calculateTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" class="form-input" id="quantity" value="1" min="1" onchange="calculateTotal()">
+                        </div>
+                    </div>
+                    <div class="total-display" id="totalDisplay">
+                        Select dates to calculate total
+                    </div>
+                </div>
+
+                <form id="equipmentRentalForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" class="form-input" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" class="form-input" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" name="email" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-input" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Organization</label>
+                            <input type="text" class="form-input" name="organization" placeholder="Company/Studio name (if applicable)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Project Description *</label>
+                        <textarea class="form-textarea" name="projectDescription" rows="3" placeholder="Brief description of your project/event..." required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Pickup Method *</label>
+                            <select class="form-select" name="pickupMethod" required>
+                                <option value="">Select pickup method</option>
+                                <option value="Studio Pickup">Studio Pickup (Free)</option>
+                                <option value="Delivery">Delivery (+₹500)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Experience Level</label>
+                            <select class="form-select" name="experienceLevel">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Professional">Professional</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Delivery Address (if delivery selected)</label>
+                        <textarea class="form-textarea" name="deliveryAddress" rows="2" placeholder="Complete address for delivery..."></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="equipmentTerms" name="equipmentTerms" required>
+                        <label for="equipmentTerms">I agree to the rental terms, damage policy, and security deposit requirements</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="insuranceOptIn" name="insuranceOptIn">
+                        <label for="insuranceOptIn">Add equipment insurance (+10% of rental cost)</label>
+                    </div>
+
+                    <!-- Hidden fields -->
+                    <input type="hidden" name="equipmentName" id="equipmentName">
+                    <input type="hidden" name="dailyRate" id="dailyRate">
+                    <input type="hidden" name="startDate" id="startDateHidden">
+                    <input type="hidden" name="endDate" id="endDateHidden">
+                    <input type="hidden" name="quantity" id="quantityHidden">
+                    <input type="hidden" name="totalAmount" id="totalAmountHidden">
+                    <input type="hidden" name="submissionType" value="equipment">
+                    <input type="hidden" name="timestamp" id="equipmentTimestamp">
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Submit Rental Request</span>
+                        <span class="btn-loading" style="display: none;">Processing...</span>
+                    </button>
+                </form>
+
+                <div class="success-message" id="equipmentSuccessMessage">
+                    <div class="success-icon">✅</div>
+                    <h3>Rental Request Submitted!</h3>
+                    <p>We'll contact you within 24 hours to confirm availability and arrange pickup/delivery.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEquipmentData = {};
+
+        function openRentalModal(equipmentName, dailyRate) {
+            currentEquipmentData = {
+                name: equipmentName,
+                rate: dailyRate
+            };
+
+            // Populate equipment summary
+            document.getElementById('equipmentSummary').innerHTML = `
+                <h3>${equipmentName}</h3>
+                <p><strong>Daily Rate:</strong> ${dailyRate}</p>
+            `;
+
+            // Set hidden fields
+            document.getElementById('equipmentName').value = equipmentName;
+            document.getElementById('dailyRate').value = dailyRate.replace('₹', '').replace('/day', '');
+            document.getElementById('equipmentTimestamp').value = new Date().toISOString();
+
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').min = today;
+            document.getElementById('endDate').min = today;
+
+            // Show modal
+            document.getElementById('rentalModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRentalModal() {
+            document.getElementById('rentalModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            document.getElementById('equipmentRentalForm').reset();
+            document.getElementById('equipmentSuccessMessage').style.display = 'none';
+            document.querySelector('#rentalModal .modal-body form').style.display = 'block';
+            document.getElementById('totalDisplay').textContent = 'Select dates to calculate total';
+        }
+
+        function calculateTotal() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            if (startDate && endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Include both start and end dates
+                
+                const dailyRate = parseInt(currentEquipmentData.rate.replace('₹', '').replace('/day', ''));
+                const total = dailyRate * diffDays * quantity;
+                
+                document.getElementById('totalDisplay').innerHTML = `
+                    <div>Total: ₹${total.toLocaleString()}</div>
+                    <small>(${diffDays} days × ₹${dailyRate} × ${quantity} unit${quantity > 1 ? 's' : ''})</small>
+                `;
+
+                // Update hidden fields
+                document.getElementById('startDateHidden').value = startDate;
+                document.getElementById('endDateHidden').value = endDate;
+                document.getElementById('quantityHidden').value = quantity;
+                document.getElementById('totalAmountHidden').value = total;
+            }
+        }
+
+        // Handle equipment rental form submission
+        document.getElementById('equipmentRentalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            submitBtn.disabled = true;
+
+            try {
+                // Prepare form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Add additional data
+                data.submissionDate = new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'});
+                data.status = 'Pending Confirmation';
+                data.rentalDays = document.getElementById('totalDisplay').textContent.includes('days') ? 
+                    document.getElementById('totalDisplay').textContent.match(/\d+(?=\s+days)/)[0] : '1';
+
+                // Submit to Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbxVP247XdoaC-niUtAMDxvJFOG1E02i-c_998aMtUJ82bYqxqX8fhKmz0eeoqGDjF0wgw/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Show success message
+                document.querySelector('#rentalModal .modal-body form').style.display = 'none';
+                document.getElementById('equipmentSuccessMessage').style.display = 'block';
+
+                // Auto close after 5 seconds
+                setTimeout(() => {
+                    closeRentalModal();
+                }, 5000);
+
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your request. Please try again or contact us directly.');
+            } finally {
+                // Reset loading state
+                submitBtn.classList.remove('loading');
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Update rent buttons to open modal
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.rent-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        const equipmentCard = this.closest('.equipment-card');
+                        const equipmentName = equipmentCard.querySelector('.equipment-name').textContent;
+                        const dailyPrice = equipmentCard.querySelector('.daily-price').textContent;
+                        
+                        openRentalModal(equipmentName, dailyPrice);
+                    }
+                });
+            });
+        });
+    </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const equipmentCards = document.querySelectorAll('.equipment-card');
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            // Filter functionality
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-category');
+                    
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Filter equipment cards
+                    equipmentCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Mobile menu toggle
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                    navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+
+            // Animate equipment cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe equipment cards
+            equipmentCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Rent button functionality
+            document.querySelectorAll('.rent-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        const equipmentName = this.closest('.equipment-card').querySelector('.equipment-name').textContent;
+                        alert(`Rental inquiry for ${equipmentName}. Please contact us to complete the booking.`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

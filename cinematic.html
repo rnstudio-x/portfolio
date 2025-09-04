@@ -1,0 +1,739 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematics Portfolio - RN Studio Photography</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --bg-light: #fafafa;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(44, 62, 80, 0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path d="M0,100 Q500,0 1000,100 L1000,200 L0,200 Z" fill="%23e74c3c" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 700px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 4rem 0 2rem;
+            background: var(--white);
+        }
+
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.8rem 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Video Gallery Section */
+        .gallery-section {
+            padding: 2rem 0 6rem;
+            background: var(--white);
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 15px;
+        }
+
+        .video-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .video-item:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(231, 76, 60, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid white;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 5px;
+        }
+
+        .video-item:hover .play-button {
+            background: rgba(231, 76, 60, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .video-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .video-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .video-modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            aspect-ratio: 16/9;
+        }
+
+        .video-modal video {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-weight: 400;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 1rem 3rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.8rem;
+                margin: 0.25rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">RN Studio</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link">Wedding</a>
+                </li>
+                <li class="nav-item">
+                    <a href="pre-wedding.html" class="nav-link">Pre-Wedding</a>
+                </li>
+                <li class="nav-item">
+                    <a href="events.html" class="nav-link">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a href="travel.html" class="nav-link">Travel</a>
+                </li>
+                <li class="nav-item">
+                    <a href="cinematics.html" class="nav-link active">Cinematics</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cinematic Films</h1>
+            <p>Beautifully crafted cinematic videos that tell your story with a perfect blend of visuals and emotions</p>
+        </div>
+    </section>
+
+    <!-- Filter Navigation -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All Films</button>
+            <button class="filter-btn" data-filter="wedding-films">Wedding Films</button>
+            <button class="filter-btn" data-filter="love-story">Love Stories</button>
+            <button class="filter-btn" data-filter="commercial">Commercial</button>
+            <button class="filter-btn" data-filter="documentary">Documentary</button>
+        </div>
+    </section>
+
+    <!-- Video Gallery Grid -->
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Video items will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <span class="modal-close">&times;</span>
+            <video id="modal-video" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready for your cinematic story?</h2>
+            <p>Let us create a beautiful film that captures your journey</p>
+            <a href="#contact" class="cta-btn">Create Film</a>
+        </div>
+    </section>
+
+    <script>
+        // Video data for Cinematics
+        const videoData = [
+            {
+                id: 1,
+                thumbnail: 'https://via.placeholder.com/600x400/e74c3c/ffffff?text=Wedding+Film',
+                videoSrc: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+                title: 'Eternal Love Wedding Film',
+                description: 'A romantic journey of two souls becoming one',
+                duration: '4:32',
+                category: 'wedding-films',
+                alt: 'Wedding cinematic film'
+            },
+            {
+                id: 2,
+                thumbnail: 'https://via.placeholder.com/600x400/2c3e50/ffffff?text=Love+Story',
+                videoSrc: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4',
+                title: 'Pre-Wedding Love Story',
+                description: 'Capturing the romance before the big day',
+                duration: '3:45',
+                category: 'love-story',
+                alt: 'Pre-wedding love story film'
+            },
+            {
+                id: 3,
+                thumbnail: 'https://via.placeholder.com/600x400/e74c3c/ffffff?text=Corporate+Film',
+                videoSrc: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+                title: 'Corporate Brand Story',
+                description: 'Professional brand storytelling',
+                duration: '2:15',
+                category: 'commercial',
+                alt: 'Corporate brand film'
+            },
+            {
+                id: 4,
+                thumbnail: 'https://via.placeholder.com/600x400/2c3e50/ffffff?text=Documentary',
+                videoSrc: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4',
+                title: 'Cultural Documentary',
+                description: 'Preserving traditions and heritage',
+                duration: '5:20',
+                category: 'documentary',
+                alt: 'Cultural documentary film'
+            },
+            {
+                id: 5,
+                thumbnail: 'https://via.placeholder.com/600x400/e74c3c/ffffff?text=Highlight+Reel',
+                videoSrc: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+                title: 'Wedding Highlight Reel',
+                description: 'Best moments from the special day',
+                duration: '1:45',
+                category: 'wedding-films',
+                alt: 'Wedding highlight reel'
+            },
+            {
+                id: 6,
+                thumbnail: 'https://via.placeholder.com/600x400/2c3e50/ffffff?text=Engagement+Story',
+                videoSrc: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4',
+                title: 'Engagement Story',
+                description: 'The moment everything changed',
+                duration: '2:30',
+                category: 'love-story',
+                alt: 'Engagement story film'
+            }
+        ];
+
+        class CinematicsGallery {
+            constructor() {
+                this.galleryGrid = document.getElementById('gallery-grid');
+                this.filterBtns = document.querySelectorAll('.filter-btn');
+                this.videoModal = document.getElementById('video-modal');
+                this.modalVideo = document.getElementById('modal-video');
+                this.modalClose = document.querySelector('.modal-close');
+                this.hamburger = document.querySelector('.hamburger');
+                this.navMenu = document.querySelector('.nav-menu');
+                
+                this.currentFilter = 'all';
+                this.filteredData = [...videoData];
+                
+                this.init();
+            }
+            
+            init() {
+                this.renderGallery();
+                this.bindEvents();
+                this.initNavbar();
+            }
+            
+            bindEvents() {
+                this.filterBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => this.handleFilter(e));
+                });
+                
+                this.galleryGrid.addEventListener('click', (e) => this.handleVideoClick(e));
+                
+                this.modalClose.addEventListener('click', () => this.closeVideoModal());
+                
+                this.videoModal.addEventListener('click', (e) => {
+                    if (e.target === this.videoModal) this.closeVideoModal();
+                });
+                
+                document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+                
+                this.hamburger.addEventListener('click', () => this.toggleMobileMenu());
+            }
+            
+            renderGallery() {
+                this.galleryGrid.innerHTML = '';
+                
+                this.filteredData.forEach((item, index) => {
+                    const videoItem = this.createVideoItem(item, index);
+                    this.galleryGrid.appendChild(videoItem);
+                });
+                
+                this.animateVideoItems();
+            }
+            
+            createVideoItem(item, index) {
+                const div = document.createElement('div');
+                div.className = 'video-item';
+                div.dataset.category = item.category;
+                div.dataset.index = index;
+                
+                div.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="${item.thumbnail}" alt="${item.alt}" loading="lazy">
+                        <div class="play-button"></div>
+                        <div class="video-duration">${item.duration}</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                `;
+                
+                return div;
+            }
+            
+            handleFilter(e) {
+                const filter = e.target.dataset.filter;
+                
+                this.filterBtns.forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                this.currentFilter = filter;
+                this.filteredData = filter === 'all' 
+                    ? [...videoData] 
+                    : videoData.filter(item => item.category === filter);
+                
+                this.renderGallery();
+            }
+            
+            handleVideoClick(e) {
+                const videoItem = e.target.closest('.video-item');
+                if (videoItem) {
+                    const index = parseInt(videoItem.dataset.index);
+                    this.openVideoModal(index);
+                }
+            }
+            
+            openVideoModal(index) {
+                const item = this.filteredData[index];
+                
+                this.modalVideo.src = item.videoSrc;
+                this.videoModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                // Auto play video
+                setTimeout(() => {
+                    this.modalVideo.play();
+                }, 300);
+            }
+            
+            closeVideoModal() {
+                this.modalVideo.pause();
+                this.modalVideo.src = '';
+                this.videoModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            handleKeyPress(e) {
+                if (this.videoModal.style.display === 'flex') {
+                    if (e.key === 'Escape') {
+                        this.closeVideoModal();
+                    }
+                }
+            }
+            
+            toggleMobileMenu() {
+                this.navMenu.classList.toggle('active');
+                this.hamburger.classList.toggle('active');
+            }
+            
+            initNavbar() {
+                window.addEventListener('scroll', () => {
+                    const navbar = document.querySelector('.navbar');
+                    if (window.scrollY > 100) {
+                        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+                    } else {
+                        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                        navbar.style.boxShadow = 'none';
+                    }
+                });
+            }
+            
+            animateVideoItems() {
+                const items = document.querySelectorAll('.video-item');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, index * 100);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                items.forEach(item => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(30px)';
+                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(item);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new CinematicsGallery();
+        });
+    </script>
+</body>
+</html>
