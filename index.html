@@ -640,24 +640,64 @@ body {
 }
 
 /* Gallery Section - UPQODE Hover Effect */
+/* --- UPDATED GALLERY STYLES --- */
+
+/* Main container for the masonry layout */
 .gallery-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  /* 
+    This creates the columns. It will start with 1 column on mobile,
+    and go up to 4 on large screens. You can adjust these numbers.
+  */
+  columns: 1;
+  column-gap: 20px; /* This sets the space between columns */
 }
 
+/* --- Media queries for responsive columns --- */
+/* For tablets */
+@media (min-width: 768px) {
+  .gallery-container {
+    columns: 2;
+  }
+}
+
+/* For small desktops */
+@media (min-width: 992px) {
+  .gallery-container {
+    columns: 3;
+  }
+}
+
+/* For large desktops */
+@media (min-width: 1200px) {
+  .gallery-container {
+    columns: 4;
+  }
+}
+
+
+/* 
+  Updated gallery item. We remove the fixed height and add a property
+  to prevent items from breaking across columns.
+*/
 .gallery-item {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  height: 300px;
   cursor: pointer;
+  margin-bottom: 20px; /* Adds space below each item */
+  break-inside: avoid; /* This is crucial! Prevents items from splitting across columns */
+  height: auto; /* Allow height to be determined by content */
 }
 
+/* 
+  The rest of your styles for the image, overlay, and hover effects
+  can remain exactly the same as they work perfectly with this new layout.
+*/
 .gallery-img {
   width: 100%;
-  height: 100%;
+  height: auto; /* Let the image's height be natural */
   object-fit: cover;
+  display: block; /* Removes any extra space below the image */
   transition: transform 0.8s ease;
 }
 
@@ -677,14 +717,14 @@ body {
 }
 
 .gallery-title {
-  color: var(--white);
+  color: #fff; /* Replaced var(--white) for this example */
   margin-bottom: 5px;
   transform: translateY(20px);
   transition: transform 0.5s ease;
 }
 
 .gallery-category {
-  color: var(--secondary);
+  color: #ffc107; /* Replaced var(--secondary) for this example */
   font-size: 0.85rem;
   transform: translateY(20px);
   transition: transform 0.5s ease;
