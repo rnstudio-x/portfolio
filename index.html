@@ -268,14 +268,33 @@ a:hover {
         left: 0;
     }
     
-    .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        border-radius: 0;
-        background: transparent;
-        margin-top: 8px;
-        display: none !important; /* Hide original dropdown logic on mobile */
-    }
+    .nav-item.dropdown .fa-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+.nav-item.dropdown.open .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    min-width: 100%;
+    padding: 0;
+    background-color: #f8f9fa; /* Light background for visibility */
+    margin-top: 8px;
+    
+    /* Animation styles */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.nav-item.dropdown.open > .dropdown-menu {
+    max-height: 500px; /* Allow space for dropdown to open */
+    padding: 10px 0;
+}
 }
 
 .section {
@@ -1717,25 +1736,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Menu (Hamburger) ---
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const dropdownLinks = document.querySelectorAll('.nav-menu .dropdown .nav-link');
 
-    const toggleMenu = () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    };
-
-    // Toggle menu when hamburger is clicked
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', toggleMenu);
-    }
-
-    // Close menu when a navigation link is clicked
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navMenu.classList.contains('active')) {
-                toggleMenu();
-            }
+    // Function to toggle the main mobile menu
+const toggleMainMenu = () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    
+    // When closing the main menu, also close any open dropdowns
+    if (!navMenu.classList.contains('active')) {
+        dropdownLinks.forEach(link => {
+            link.parentElement.classList.remove('open');
         });
+    }
+};
+
+ // Toggle menu when hamburger is clicked
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', toggleMainMenu);
+}
+
+// Add click event for dropdowns on mobile
+dropdownLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        // Check if we are in mobile view (hamburger is visible)
+        if (window.innerWidth <= 992) {
+            e.preventDefault(); // Stop link from navigating
+            const dropdown = link.parentElement;
+            
+            // Close other open dropdowns
+            if (!dropdown.classList.contains('open')) {
+                dropdownLinks.forEach(l => l.parentElement.classList.remove('open'));
+            }
+
+            // Toggle the 'open' class on the clicked dropdown
+            dropdown.classList.toggle('open');
+        }
     });
+});
+
+// Close menu when a non-dropdown link is clicked
+document.querySelectorAll('.nav-link:not(.dropdown > .nav-link)').forEach(link => {
+    link.addEventListener('click', () => {
+        if (navMenu.classList.contains('active')) {
+            toggleMainMenu();
+        }
+    });
+});
 
     // --- Header Scroll Effect ---
     const header = document.getElementById('header');
