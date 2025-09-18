@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RN Studio</title>
+    <!-- Link to your main stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Link to the new contact page stylesheet -->
+    <link rel="stylesheet" href="css/contact.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS (Animate on Scroll) Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+    <!-- ===== Header (Copy from your index.html) ===== -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <div class="logo-text">
+                        <span class="logo-name">RN Studio</span>
+                        <span class="logo-tagline">Your Emotions, Our Lens</span>
+                    </div>
+                </a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="rental.html" class="dropdown-link">Rental</a></li>
+                            <li><a href="price.html" class="dropdown-link">Packages</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Portfolio <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Pre-wedding.html" class="dropdown-link">Pre-Wedding</a></li>
+                            <li><a href="wedding.html" class="dropdown-link">Wedding</a></li>
+                        </ul>
+                    </li>
+                    <!-- Add the active class to the new contact link -->
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                    <li class="nav-item"><a href="index.html#booking" class="nav-link booking-button">Book Now</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== Main Contact Section ===== -->
+    <main class="contact-page">
+        <!-- Hero Section -->
+        <section class="contact-hero">
+            <div class="container" data-aos="fade-up">
+                <h1 class="contact-hero-title">Get in Touch</h1>
+                <p class="contact-hero-subtitle">We'd love to hear from you. Whether you have a question about our services or want to book a session, our team is ready to answer all your questions.</p>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Meet The Team</h2>
+                <div class="team-cards-container">
+                    <!-- Photographer Card 1 -->
+                    <div class="photographer-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-background"></div>
+                        <div class="card-profile-pic">
+                            <!-- Replace with actual image URL -->
+                            <img src="https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&h=500&fit=crop" alt="Photographer 1">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="photographer-name">Rahul Verma</h3>
+                            <p class="photographer-role">Lead Wedding Photographer</p>
+                            <div class="photographer-socials">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Photographer Card 2 -->
+                    <div class="photographer-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-background"></div>
+                        <div class="card-profile-pic">
+                             <!-- Replace with actual image URL -->
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&h=500&fit=crop" alt="Photographer 2">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="photographer-name">Priya Singh</h3>
+                            <p class="photographer-role">Cinematic Videographer</p>
+                            <div class="photographer-socials">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-vimeo-v"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section">
+            <div class="container">
+                <div class="contact-wrapper" data-aos="fade-up">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <p>Fill up the form and our Team will get back to you within 24 hours.</p>
+                        <ul>
+                            <li><i class="fas fa-phone"></i> +91 82393 72489</li>
+                            <li><i class="fas fa-envelope"></i> rnstudio.x@gmail.com</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Thandla, Madhya Pradesh, India</li>
+                        </ul>
+                        <div class="contact-info-socials">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form action="#" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="name" id="name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" required>
+                                <label for="email">Email Address</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="subject" id="subject" required>
+                                <label for="subject">Subject</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" id="message" rows="5" required></textarea>
+                                <label for="message">Your Message</label>
+                            </div>
+                            <button type="submit" class="btn-submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Footer (Copy from your index.html) ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Add your existing footer columns here -->
+                 <div class="footer-column">
+                    <h3>RN Studio</h3>
+                    <p>Professional photography services capturing your special moments with creativity, passion, and precision.</p>
+                 </div>
+                 <div class="footer-column">
+                    <h3>Quick Links</h3>
+                     <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                     </ul>
+                 </div>
+                 <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="footer-contact-item">
+                        <span><i class="fas fa-phone"></i> +91 82393 72489</span>
+                    </div>
+                 </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; <span id="currentYear"></span> RN Studio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/contact.js" defer></script>
+    <script src="js/script.js" defer></script>
+</body>
+</html>
